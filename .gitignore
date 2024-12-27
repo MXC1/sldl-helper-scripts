@@ -1,0 +1,9 @@
+logs/
+missing_tracks/
+scripts/__pycache__
+scripts/error_log.txt
+scripts/error_logs
+scripts/soundcloud_playlists
+failed_downloads*
+tracks_and_playlists
+musicbee_library
