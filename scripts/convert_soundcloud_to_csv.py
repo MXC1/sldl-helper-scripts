@@ -91,16 +91,10 @@ def scrape_soundcloud_playlist(url, output_csv):
         logging.error(error_message)
         log_error_to_file(__file__, error_message)
         raise  # Re-raise the exception for further handling
-
-if __name__ == "__main__":
+    
+def convert_soundcloud_to_csv(url):
     try:
-        # Check if the URL parameter is provided via `sys.argv`
-        if len(sys.argv) < 2:
-            logging.error("No URL parameter provided. Exiting.")
-            sys.exit(1)
-
         # Get the URL and derive the CSV filename
-        url = sys.argv[1]
         output_csv = "soundcloud_playlists/" + url.split("/")[-1] + ".csv"
 
         logging.info(f"Received URL: {url}")
@@ -112,3 +106,12 @@ if __name__ == "__main__":
         logging.error("Unhandled exception occurred. Exiting.")
         log_error_to_file(__file__, f"Unhandled exception: {str(e)}")
         sys.exit(1)
+
+# Provide this as an option for testing
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        url = sys.argv[1]
+    else:
+        url = input("Please enter the SoundCloud playlist URL: ")
+        
+    convert_soundcloud_to_csv(url)
