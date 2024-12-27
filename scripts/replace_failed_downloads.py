@@ -10,11 +10,6 @@ destination_dir = "E:\\Music\\sldl\\tracks_and_playlists"
 # Suppress root Tk window
 Tk().withdraw()
 
-# def select_input_file():
-#     """Open a file browser to select the input file."""
-#     print("Opening file browser to select input file...")
-#     return filedialog.askopenfilename(title="Select the Input File")
-
 def select_replacement_file(artist, title):
     """Open a file browser to select a replacement file."""
     pyperclip.copy(f"{artist} {title}")

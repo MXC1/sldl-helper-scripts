@@ -89,13 +89,6 @@ def update_sldl_files(directory, old_file, new_file):
                     error_message = f"Error updating SLDL file {sldl_path}: {e}"
                     print(error_message)
                     log_error_to_file(__file__, error_message)
-
-# Example function to log errors, which can be used in both methods
-def log_error_to_file(script_name, message):
-    """Logs error message to a file with timestamp."""
-    with open("error_log.txt", "a", encoding="utf-8") as log_file:
-        log_file.write(f"{script_name}: {message}\n")
-
                     
 def sanitize_filename(filename):
     # Define characters to remove or replace
@@ -103,8 +96,6 @@ def sanitize_filename(filename):
     sanitized_filename = re.sub(problematic_chars, '', filename)
     return sanitized_filename                    
 
-import os
-import subprocess
 
 def remux_to_320kbps_mp3(source_path, destination_path, directory):
     try:
