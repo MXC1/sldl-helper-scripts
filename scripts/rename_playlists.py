@@ -35,15 +35,8 @@ def process_m3u8_files(directory):
     except Exception as e:
         error_message = f"Exception occurred: {str(e)}"
         log_error_to_file(__file__, error_message)
-
-if __name__ == "__main__":
-    # Check if the directory is passed as an argument
-    if len(sys.argv) > 1:
-        top_level_directory = sys.argv[1]
-    else:
-        # Prompt the user for the directory
-        top_level_directory = input("Please enter the top-level directory: ").strip()
-
+        
+def rename_playlists(top_level_directory):
     if os.path.isdir(top_level_directory):
         try:
             process_m3u8_files(top_level_directory)
@@ -55,3 +48,14 @@ if __name__ == "__main__":
         error_message = f"The provided path is not a valid directory: {top_level_directory}"
         logging.error(error_message)
         log_error_to_file(__file__, error_message)
+
+# Provide this as an option for testing
+if __name__ == "__main__":
+    # Check if the directory is passed as an argument
+    if len(sys.argv) > 1:
+        top_level_directory = sys.argv[1]
+    else:
+        # Prompt the user for the directory
+        top_level_directory = input("Please enter the top-level directory: ").strip()
+        
+    rename_playlists(top_level_directory)

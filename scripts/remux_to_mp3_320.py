@@ -184,16 +184,8 @@ def print_summary():
     for key, count in file_summary.items():
         print(f"{key}: {count}")
     print("-" * 50)
-
-# Entry point
-if __name__ == '__main__':
-    # Check if the directory is passed as an argument
-    if len(sys.argv) > 1:
-        directory = sys.argv[1]
-    else:
-        # Prompt the user for the directory
-        directory = input("Enter the directory to process: ").strip()
-
+    
+def remux_to_mp3_320(directory):
     if os.path.isdir(directory):
         try:
             walk_directory(directory)
@@ -206,3 +198,14 @@ if __name__ == '__main__':
         error_message = f"Invalid directory. Please check the path and try again."
         print(error_message)
         log_error_to_file(__file__, error_message)
+
+# Entry point
+if __name__ == '__main__':
+    # Check if the directory is passed as an argument
+    if len(sys.argv) > 1:
+        directory = sys.argv[1]
+    else:
+        # Prompt the user for the directory
+        directory = input("Enter the directory to process: ").strip()
+        
+    remux_to_mp3_320(directory)
