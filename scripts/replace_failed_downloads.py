@@ -1,3 +1,8 @@
+# This script helps to replace downloads that have failed and update the corresponding .m3u8 and .sldl files with the new file path.
+# The script reads the CSV file containing the list of tracks that have failed to download through slsk-batchdl.
+# It prompts the user to select a replacement file for each entry.
+# It then copies the replacement file to the destination directory and updates any .m3u8 and .sldl files with the new file path.
+
 import os
 import csv
 import shutil

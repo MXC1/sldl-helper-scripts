@@ -1,3 +1,7 @@
+# Uses Selenium to scrape a SoundCloud playlist and save the track information to a CSV file.
+# The CSV file is later used to download the tracks using slsk-batchdl.
+# This is necessary because slsk-batchdl does not support SoundCloud URLs directly, but it does support csv files.
+
 import sys
 import os
 import logging

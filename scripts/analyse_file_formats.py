@@ -1,3 +1,7 @@
+# This script analyses the audio file formats and bitrates in a given directory and provides a summary of the results.
+# It uses the Mutagen library to extract audio file information such as format and bitrate.
+# The script can be run from the command line with the directory path as the first argument or by entering the directory path when prompted.
+
 import os
 import sys
 from mutagen import File

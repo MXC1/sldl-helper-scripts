@@ -1,3 +1,6 @@
+# Download and process Spotify and SoundCloud playlists using sldl and other scripts.
+# This is the 'master' script that calls other scripts to download and process playlists.
+
 import subprocess
 from log_error_to_file import log_error_to_file
 import os

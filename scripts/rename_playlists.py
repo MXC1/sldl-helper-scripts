@@ -1,3 +1,6 @@
+# Renames the _playlist.m3u8 files to the name of the parent directory.
+# This is necessary because slsk-batchdl names all playlist files as _playlist.m3u8, which prevents automatic import into Rekordbox.
+
 import os
 import logging
 import sys

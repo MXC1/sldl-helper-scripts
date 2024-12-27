@@ -1,3 +1,8 @@
+# Remuxes all files in a directory to 320kbps MP3 format.
+# Also updates .m3u8 playlists and .sldl indexes with the new file extension.
+# Usage: python remux_to_mp3_320.py <directory_path>
+# If the directory path is not provided, the script will prompt the user to select a directory.
+
 import os
 import subprocess
 import sys

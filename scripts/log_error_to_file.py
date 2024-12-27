@@ -1,3 +1,6 @@
+# Logs an error message to a file in the error_logs directory
+# The error message is written to a file named with the current date
+
 from datetime import datetime
 import os
 

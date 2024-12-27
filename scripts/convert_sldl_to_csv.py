@@ -1,3 +1,8 @@
+# Convert a .sldl file to a .csv file and open it in Excel
+# .csv file is saved to a temporary directory to avoid clogging up the working directory
+# Purpose is to provide a context menu shortcut to make .sldl files easier to read
+# Usage: python convert_sldl_to_csv.py <file_path>
+
 import csv
 import os
 import tempfile

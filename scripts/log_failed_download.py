@@ -1,3 +1,7 @@
+# Logs failed downloads to a CSV file.
+# Also removes the entry from the CSV file if the download was successful, so that it remains an up-to-date list of files that are missing.
+# The CSV file can then later be used by `replace_failed_downloads.py` to import the failed download from elsewhere.
+
 import sys
 import csv
 import os
