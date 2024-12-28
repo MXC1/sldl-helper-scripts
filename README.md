@@ -1,7 +1,13 @@
+You will need:
+* [pip](https://pypi.org/project/pip/)
+* [python](https://www.python.org/downloads/)
+* Some technical knowledge
+
+Very brief steps to use:
 1. Clone repository
 2. Install dependencies with `pip install -r requirements.txt`
-3. Replace my list with your Spotify and SoundCloud playlist URLs in `download_and_process_playlists.py`
-4. Run `download_and_process_playlists.py`
+3. Replace my list with your Spotify and SoundCloud playlist URLs in `/scripts/download_and_process_playlists.py`
+4. Run `/scripts/download_and_process_playlists.py`
 5. ???
 6. Profit
 
@@ -13,7 +19,7 @@ The scripts do the following things:
 * creates .m3u8 playlists with the same name as your Spotify/SoundCloud playlists
 
 * failed downloads are stored in `/failed_downloads.csv`
-* `replace_failed_downloads.py` will traverse through the list of failed downloads and open a file browser dialogue for you to import those missing files.
+* The `replace_failed_downloads.py` script will traverse through the list of failed downloads and open a file browser dialogue for you to import those missing files.
 * Tracks will be removed from the failed_downloads list if they are successfully downloaded or if you successfully import them to your library using `replace_failed_downloads.py`
  
 * errors are written to `/scripts/error_logs/YYYY-MM-DD_error_logs.txt`
