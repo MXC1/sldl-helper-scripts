@@ -11,6 +11,7 @@ from mutagen import File
 from mutagen.mp3 import MP3
 from collections import defaultdict
 import traceback
+import tempfile
 from log_error_to_file import log_error_to_file
 
 # Dictionary to track file summaries
@@ -105,9 +106,8 @@ def remux_to_320kbps_mp3(source_path, destination_path, directory):
         os.makedirs(os.path.dirname(destination_path), exist_ok=True)
         
         # Generate temporary file name for processing
-        temp_destination_path = destination_path.rsplit('.', 1)
-        temp_destination_path = f"{temp_destination_path[0]}_temp.{temp_destination_path[1]}"  # Add _temp to the filename
-        
+        temp_destination_path = tempfile.mkstemp(suffix=".mp3")[1]
+
         # ffmpeg command to remux to 320kbps MP3
         command = [
             'ffmpeg', '-y',  # Overwrite without prompting
@@ -123,18 +123,19 @@ def remux_to_320kbps_mp3(source_path, destination_path, directory):
         
             print(f"Remuxed: {source_path} -> {temp_destination_path}")
             
-            # Update .m3u8 playlists and .sldl indexes with the new file extension
-            old_file = os.path.relpath(source_path, directory)
-            new_file = os.path.relpath(temp_destination_path, directory)
-            update_m3u8_files(directory, old_file, new_file)
-            update_sldl_files(directory, old_file, new_file)
-            
             # Replace the original file with the remuxed temporary file
             os.replace(temp_destination_path, destination_path)
             print(f"Replaced original file with remuxed file: {destination_path}")
             
+            # Update .m3u8 playlists and .sldl indexes with the new file extension
+            old_file = os.path.relpath(source_path, directory)
+            new_file = os.path.relpath(destination_path, directory)
+            update_m3u8_files(directory, old_file, new_file)
+            update_sldl_files(directory, old_file, new_file)
+            
             # Remove the original file after remuxing
             os.remove(source_path)
+            os.remove(temp_destination_path)
             print(f"Removed original file: {source_path}")
             
         except subprocess.CalledProcessError as e:
