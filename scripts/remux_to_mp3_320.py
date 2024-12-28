@@ -10,6 +10,8 @@ import re
 from mutagen import File
 from mutagen.mp3 import MP3
 from collections import defaultdict
+import traceback
+import tempfile
 from log_error_to_file import log_error_to_file
 
 # Dictionary to track file summaries
@@ -35,6 +37,8 @@ def get_audio_info(file_path):
 
         return file_info
     except Exception as e:
+        exception_details = traceback.format_exc()
+        error_message = "File path: " + file_path + "\n"
         error_message = f"Error processing {file_path}: {e}"
         print(error_message)
         log_error_to_file(__file__, error_message)
@@ -93,13 +97,7 @@ def update_sldl_files(directory, old_file, new_file):
                 except Exception as e:
                     error_message = f"Error updating SLDL file {sldl_path}: {e}"
                     print(error_message)
-                    log_error_to_file(__file__, error_message)
-                    
-def sanitize_filename(filename):
-    # Define characters to remove or replace
-    problematic_chars = r'[<>:"/\|?*;]'  # This regex includes semicolons, and other common problematic characters.
-    sanitized_filename = re.sub(problematic_chars, '', filename)
-    return sanitized_filename                    
+                    log_error_to_file(__file__, error_message)               
 
 
 def remux_to_320kbps_mp3(source_path, destination_path, directory):
@@ -107,13 +105,9 @@ def remux_to_320kbps_mp3(source_path, destination_path, directory):
         # Ensure destination folder exists
         os.makedirs(os.path.dirname(destination_path), exist_ok=True)
         
-        source_path = sanitize_filename(source_path)
-        destination_path = sanitize_filename(destination_path)
-
         # Generate temporary file name for processing
-        temp_destination_path = destination_path.rsplit('.', 1)
-        temp_destination_path = f"{temp_destination_path[0]}_temp.{temp_destination_path[1]}"  # Add _temp to the filename
-        
+        temp_destination_path = tempfile.mkstemp(suffix=".mp3")[1]
+
         # ffmpeg command to remux to 320kbps MP3
         command = [
             'ffmpeg', '-y',  # Overwrite without prompting
@@ -129,18 +123,19 @@ def remux_to_320kbps_mp3(source_path, destination_path, directory):
         
             print(f"Remuxed: {source_path} -> {temp_destination_path}")
             
-            # Update .m3u8 playlists and .sldl indexes with the new file extension
-            old_file = os.path.relpath(source_path, directory)
-            new_file = os.path.relpath(temp_destination_path, directory)
-            update_m3u8_files(directory, old_file, new_file)
-            update_sldl_files(directory, old_file, new_file)
-            
             # Replace the original file with the remuxed temporary file
             os.replace(temp_destination_path, destination_path)
             print(f"Replaced original file with remuxed file: {destination_path}")
             
+            # Update .m3u8 playlists and .sldl indexes with the new file extension
+            old_file = os.path.relpath(source_path, directory)
+            new_file = os.path.relpath(destination_path, directory)
+            update_m3u8_files(directory, old_file, new_file)
+            update_sldl_files(directory, old_file, new_file)
+            
             # Remove the original file after remuxing
             os.remove(source_path)
+            os.remove(temp_destination_path)
             print(f"Removed original file: {source_path}")
             
         except subprocess.CalledProcessError as e:
@@ -161,12 +156,7 @@ def walk_directory(directory):
             file_path = os.path.join(subdir, file)
             if file_path.lower().endswith(('.mp3', '.flac', '.wav', '.aac', '.ogg')):  # Add more formats as needed
                 audio_info = get_audio_info(file_path)
-                if audio_info:
-                    # print(f"File: {file_path}")
-                    # print(f"Format: {audio_info['format']}")
-                    # print(f"Bitrate: {audio_info['bitrate']}")
-                    # print('-' * 50)
-                    
+                if audio_info:                 
                     # Update the summary
                     key = f"{audio_info['format']} - {audio_info['bitrate'] or 'Unknown Bitrate'}"
                     file_summary[key] += 1
@@ -175,6 +165,8 @@ def walk_directory(directory):
                     if audio_info['format'] != 'audio/mp3' or audio_info['bitrate'] != '320kbps':
                         destination_path = os.path.splitext(file_path)[0] + '.mp3'
                         remux_to_320kbps_mp3(file_path, destination_path, directory)
+                else:
+                    log_error_to_file(__file__, f"Error processing {file_path}: Audio info not found.")
 
 def print_summary():
     print("\n--- Summary ---")
