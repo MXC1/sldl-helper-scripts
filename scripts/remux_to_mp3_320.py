@@ -10,6 +10,7 @@ import re
 from mutagen import File
 from mutagen.mp3 import MP3
 from collections import defaultdict
+import traceback
 from log_error_to_file import log_error_to_file
 
 # Dictionary to track file summaries
@@ -35,6 +36,8 @@ def get_audio_info(file_path):
 
         return file_info
     except Exception as e:
+        exception_details = traceback.format_exc()
+        error_message = "File path: " + file_path + "\n"
         error_message = f"Error processing {file_path}: {e}"
         print(error_message)
         log_error_to_file(__file__, error_message)
