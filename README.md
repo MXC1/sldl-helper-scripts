@@ -1,8 +1,9 @@
 1. Clone repository
-2. Replace my list with your Spotify and SoundCloud playlist URLs in `download_and_process_playlists.py`
-3. Run `download_and_process_playlists.py`
-4. ???
-5. Profit
+2. Install dependencies with `pip install -r requirements.txt`
+3. Replace my list with your Spotify and SoundCloud playlist URLs in `download_and_process_playlists.py`
+4. Run `download_and_process_playlists.py`
+5. ???
+6. Profit
 
 The scripts do the following things:
 * attempt to download the tracks from your list of playlists
