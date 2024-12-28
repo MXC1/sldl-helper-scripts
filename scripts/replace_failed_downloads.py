@@ -10,7 +10,7 @@ from tkinter import Tk, filedialog
 import pyperclip
 
 # Constants
-destination_dir = "E:\\Music\\sldl\\tracks_and_playlists"
+destination_dir = "../tracks_and_playlists"
 
 # Suppress root Tk window
 Tk().withdraw()
@@ -78,7 +78,7 @@ def process_sldl_files(track_title, new_file_path):
 
 def main():
     print("Starting script...")
-    input_file = "E:\Music\sldl\failed_downloads.csv"
+    input_file = "../failed_downloads.csv"
     if not input_file:
         print("No input file selected. Exiting.")
         return
