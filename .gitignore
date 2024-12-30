@@ -6,10 +6,5 @@ scripts/error_logs
 scripts/soundcloud_playlists
 failed_downloads*
 tracks_and_playlists
-<<<<<<< HEAD
 musicbee*
 scripts/convert_sldl_to_csv*
-=======
-musicbee_library
-scripts/convert_sldl_to_csv*
->>>>>>> 63a19d4ca99b161c888c4e4f6f53aeecbbdf47df
