@@ -6,4 +6,5 @@ scripts/error_logs
 scripts/soundcloud_playlists
 failed_downloads*
 tracks_and_playlists
-musicbee_library
+musicbee*
+scripts/convert_sldl_to_csv*
