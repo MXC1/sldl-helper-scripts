@@ -50,7 +50,7 @@ def process_download(file_details):
     except Exception as e:
         exception_details = traceback.format_exc()
         error_message = "File details:\n" + str(file_details) + "\n" + exception_details
-        log_error_to_file(__file__, f"Error in log_failed_downloads: {error_message}")
+        log_error_to_file(__file__, f"{error_message}")
 
         
 def remove_successful_download_from_failed_downloads_csv(f,state,title,artist,failed_downloads_csv):
