@@ -30,12 +30,7 @@ def process_download(file_details):
         log_debug(f"Extracted details: {file_details}")
 
         # Path to the CSV log file
-        log_dir = 'E:/Music/sldl'
-        failed_downloads_csv = os.path.join(log_dir, 'failed_downloads.csv')
-
-        # Ensure the directory exists
-        os.makedirs(log_dir, exist_ok=True)
-        log_debug(f"Ensured directory exists: {log_dir}")
+        failed_downloads_csv = '../failed_downloads.csv'
 
         # Create the file if it doesn't exist
         open(failed_downloads_csv, 'a', encoding='utf-8').close()
