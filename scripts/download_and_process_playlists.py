@@ -86,6 +86,10 @@ try:
     for csv_path in soundcloud_csv_paths:
         print(f"Passing SoundCloud CSV to sldl: {csv_path}")
         subprocess.run(["sldl", "--desperate", "--strict-artist", csv_path], check=True)
+        
+    # Remove SoundCloud CSV files once finished with them
+    for csv_path in soundcloud_csv_paths:
+        os.remove(csv_path)
 
     # Rename Spotify playlists
     print("Renaming playlists...")
