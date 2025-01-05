@@ -8,8 +8,8 @@ from convert_soundcloud_to_csv import convert_soundcloud_to_csv
 from rename_playlists import rename_playlists
 from remux_to_mp3_320 import remux_to_mp3_320
 
-# List of Spotify playlists with their comments
-spotify_playlists = [
+# List of playlists with their comments
+playlists = [
     ("https://open.spotify.com/playlist/37QpaaUJL8vmNYj9ZBVyrg?si=c28f71da2b8c4abb", "MILO X OLLIE BDAY"),
     ("https://open.spotify.com/playlist/0VBxbOqjsoNytf232VaQEp?si=ca0e2673bbc84231", "fun silly donk and hard dance"),
     ("https://open.spotify.com/playlist/6eUtriAMWlmkjJK6I9ctga?si=90b213fc4922442c", "harder hard dance"),
@@ -52,11 +52,7 @@ spotify_playlists = [
     ("https://open.spotify.com/playlist/2V2PsievnZxp9TBz9CDWzS?si=769d31c73e4b42fd", "IDM.Future Garage.Electronica"),
     ("https://open.spotify.com/playlist/5OZ6nyi8BRClYCpCt13a5j?si=99fb79e14cbb4ebd", "bluebells"),
     ("https://open.spotify.com/playlist/4eCSrhbfAjNF3AsIsegSRA?si=05e095b209684068", "bigger pop playlist")
-    ("https://open.spotify.com/playlist/70sombx8BFNEKSwyFEpYbq?si=m5c8Ty8LSvuFE9UN8wExMg", "Chill dance.trance.oldskool rave")
-]
-
-# List of SoundCloud playlist URLs
-soundcloud_playlists = [
+    ("https://open.spotify.com/playlist/70sombx8BFNEKSwyFEpYbq?si=m5c8Ty8LSvuFE9UN8wExMg", "Chill dance.trance.oldskool rave"),
     "https://soundcloud.com/courtjester-uk/sets/dnb-and-similar-moodiness",
     "https://soundcloud.com/courtjester-uk/sets/donk-and-bits",
     "https://soundcloud.com/courtjester-uk/sets/mutant-bass",
@@ -71,9 +67,17 @@ try:
 
     # Process all SoundCloud playlists
     soundcloud_csv_paths = []
-    for sc_url in soundcloud_playlists:
-        print(f"Processing SoundCloud playlist: {sc_url}")
-        convert_soundcloud_to_csv(sc_url)
+
+    # Process all playlists
+    for item in playlists:
+        if isinstance(item, tuple):
+            url, comment = item
+            if "spotify.com" in url:
+                print(f"Downloading Spotify playlist: {comment}")
+                subprocess.run(["sldl", url], check=True)
+        elif isinstance(item, str) and "soundcloud.com" in item:
+            print(f"Processing SoundCloud playlist: {item}")
+            convert_soundcloud_to_csv(item)
 
     # Find CSV files in the soundcloud_playlists directory
     soundcloud_csv_dir = "./soundcloud_playlists"
