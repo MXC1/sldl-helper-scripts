@@ -106,7 +106,7 @@ def main():
 
             print(f"Selected replacement file: {replacement_file}")
             # Copy the replacement file to the destination directory
-            dest_path = shutil.copy(replacement_file, destination_dir)
+            dest_path = os.path.abspath(shutil.copy(replacement_file, destination_dir))
             print(f"Copied to {dest_path}")
 
             # Update .m3u8 files
