@@ -62,12 +62,6 @@ playlists = [
 ]
 
 try:
-    # Download all Spotify playlists
-    for url, comment in spotify_playlists:
-        print(f"Downloading Spotify playlist: {comment}")
-        subprocess.run(["sldl", url], check=True)
-
-    # Process all SoundCloud playlists
     soundcloud_csv_paths = []
 
     # Process all playlists
