@@ -12,10 +12,13 @@ from remux_to_mp3_320 import remux_to_mp3_320
 playlists = [
     ("https://open.spotify.com/playlist/37QpaaUJL8vmNYj9ZBVyrg?si=c28f71da2b8c4abb", "MILO X OLLIE BDAY"),
     ("https://open.spotify.com/playlist/0VBxbOqjsoNytf232VaQEp?si=ca0e2673bbc84231", "fun silly donk and hard dance"),
+    "https://soundcloud.com/courtjester-uk/sets/donk-and-bits",
     ("https://open.spotify.com/playlist/6eUtriAMWlmkjJK6I9ctga?si=90b213fc4922442c", "harder hard dance"),
     ("https://open.spotify.com/playlist/43VZ1EitjjLslv2oilhrt4?si=cf7c418b0e214972", "tek,speedbass,frenchcore"),
+    "https://soundcloud.com/courtjester-uk/sets/tek-etc-not-on-spotify",
     ("https://open.spotify.com/playlist/1uXZ89ktDNsNc7At2iQbNR?si=efeb97175b6d443c", "hardcore.terrorcore.uptempo.crossbreed etc"),
     ("https://open.spotify.com/playlist/1xb2DyaDPm30OH8LTBRAfA?si=a0a94f60facd4ba8", "mutant bass"),
+    "https://soundcloud.com/courtjester-uk/sets/mutant-bass",
     ("https://open.spotify.com/playlist/1SLT6Rjxu7RR1VV8TyjXB9?si=e51cdde58ab64bca", "heavy tha"),
     ("https://open.spotify.com/playlist/183644Z4uc71GGvzyrmD7s?si=7b10eab2b8f945e5", "GUT PUNCH "),
     ("https://open.spotify.com/playlist/0cMUEsaouKDmIQfsbeuvoO?si=968d9a95a992457d", "loads of lovely liquid"),
@@ -24,6 +27,7 @@ playlists = [
     ("https://open.spotify.com/playlist/2Rrcb5YMLG1k0SF95ywlPB?si=e9b7f82894794a85", "weird and steppy dnb"),
     ("https://open.spotify.com/playlist/4taKi46iMkjnN2RQyPa0Ok?si=1b412940067f458e", "minimal and darker dnb"),
     ("https://open.spotify.com/playlist/6jeyPiLM9Zncg63cbxsOwU?si=3a6fbdf2573b4202", "energetic and brighter dnb"),
+    "https://soundcloud.com/courtjester-uk/sets/dnb-and-similar-moodiness",
     ("https://open.spotify.com/playlist/4CJFVpTZF4cZX0FT5P890k?si=3dcce98f020b48b6", "breaks and jungle"),
     ("https://open.spotify.com/playlist/51uBcZqOos8kcKRxWjuhLf?si=c446efc42abb4bd4", "groovy ridms"),
     ("https://open.spotify.com/playlist/6ErKxDeJ34V2LWZMe1Qlw9?si=74c2f4b4556b4c02", "Hip hop"),
@@ -33,6 +37,7 @@ playlists = [
     ("https://open.spotify.com/playlist/50vepog2aaeNNOR5TBuADf?si=8165dddd79494a46", "pyjama techno"),
     ("https://open.spotify.com/playlist/7ER4s8OP5e9KUmLrzZh2AC?si=731e1021e89c44a8", "techno mate"),
     ("https://open.spotify.com/playlist/0bztHhAs83hrsZcP09o1ML?si=72389aa31f3c4a96", "party dance"),
+    ("https://soundcloud.com/courtjester-uk/sets/party-dance"),
     ("https://open.spotify.com/playlist/2Q7SuTa5zMKMDZzsipSPte?si=415942eabf1b4977", "NAUGHTY club bangers"),
     ("https://open.spotify.com/playlist/1gFinFMmtG0hjOWtb92xjn?si=2e238477e884436e", "dance (2020)"),
     ("https://open.spotify.com/playlist/3PTCbxOVhaVx37drmaeRiw?si=2e40d5b15cad49f8", "GOOD POP"),
@@ -42,6 +47,7 @@ playlists = [
     ("https://open.spotify.com/playlist/5yoao1NrfUo7HHqL1kJnEv?si=33a5d245ba254271", "middle eastern/tribal/percussion"),
     ("https://open.spotify.com/playlist/2OA8jQQjJ52pGwIk81Ouo0?si=2d70429eb9d44c5e", "garage and rnb and similar"),
     ("https://open.spotify.com/playlist/5u7vdlYbxtimytzMCo584h?si=39824cbd68e24138", "bassline, ghettotech, speed garage"),
+    ("https://soundcloud.com/courtjester-uk/sets/bassline-ghettotech-speed"),
     ("https://open.spotify.com/playlist/1m5tSMGiRF3NTIPUUrxQju?si=9b9ef36272bc49e0", "verify me (high energy 140)"),
     ("https://open.spotify.com/playlist/3nUoTOTfTremXqwP4qxQES?si=076e1c8eee5e4e92", "dubstep (2020)"),
     ("https://open.spotify.com/playlist/37moZqbjJvpLLZbUYp5asF?si=23973f6a957d44c5", "roll with the punches (low energy 140)"),
@@ -51,12 +57,8 @@ playlists = [
     ("https://open.spotify.com/playlist/78WPQqYzu9Py7fzGqk4MDJ?si=8913938f10184014", "fuzzy dungeon punch step"),
     ("https://open.spotify.com/playlist/2V2PsievnZxp9TBz9CDWzS?si=769d31c73e4b42fd", "IDM.Future Garage.Electronica"),
     ("https://open.spotify.com/playlist/5OZ6nyi8BRClYCpCt13a5j?si=99fb79e14cbb4ebd", "bluebells"),
-    ("https://open.spotify.com/playlist/4eCSrhbfAjNF3AsIsegSRA?si=05e095b209684068", "bigger pop playlist")
-    ("https://open.spotify.com/playlist/70sombx8BFNEKSwyFEpYbq?si=m5c8Ty8LSvuFE9UN8wExMg", "Chill dance.trance.oldskool rave"),
-    "https://soundcloud.com/courtjester-uk/sets/dnb-and-similar-moodiness",
-    "https://soundcloud.com/courtjester-uk/sets/donk-and-bits",
-    "https://soundcloud.com/courtjester-uk/sets/mutant-bass",
-    "https://soundcloud.com/courtjester-uk/sets/tek-etc-not-on-spotify"
+    ("https://open.spotify.com/playlist/4eCSrhbfAjNF3AsIsegSRA?si=05e095b209684068", "bigger pop playlist"),
+    ("https://open.spotify.com/playlist/70sombx8BFNEKSwyFEpYbq?si=m5c8Ty8LSvuFE9UN8wExMg", "Chill dance.trance.oldskool rave")
 ]
 
 try:
