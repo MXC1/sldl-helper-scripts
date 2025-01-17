@@ -1,4 +1,5 @@
 logs/
+error_logs/*
 missing_tracks/
 scripts/__pycache__
 scripts/error_log.txt
