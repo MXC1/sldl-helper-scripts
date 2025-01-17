@@ -22,6 +22,22 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
+def scroll_to_bottom(driver):
+    """
+    Scrolls to the bottom of the page to load all content.
+    
+    Args:
+        driver (webdriver.Chrome): The WebDriver instance.
+    """
+    last_height = driver.execute_script("return document.body.scrollHeight")
+    while True:
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)  # Wait for new content to load
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
+
 def scrape_soundcloud_playlist(url, output_csv):
     """
     Scrapes a SoundCloud playlist and saves the track information to a CSV file.
@@ -51,6 +67,9 @@ def scrape_soundcloud_playlist(url, output_csv):
         # Load the URL
         driver.get(url)
         time.sleep(5)  # Wait for the page to load completely
+
+        logging.debug("Scrolling to load all content.")
+        scroll_to_bottom(driver)  # Scroll to load all content
 
         logging.debug("Retrieving page source.")
         # Get the page source after rendering JavaScript
