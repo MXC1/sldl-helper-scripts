@@ -90,7 +90,7 @@ def main():
         rows = list(reader)
 
     try:
-        for row in rows[:]:  # Iterate over a copy of the list
+        for row in reversed(rows):  # Iterate over the list in reverse order
             track_title = row[1]
             track_artist = row[2]
             if not track_title:
@@ -98,7 +98,7 @@ def main():
                 continue
 
             print(f"Processing track: {track_title}")
-            replacement_file = select_replacement_file(track_artist,track_title)
+            replacement_file = select_replacement_file(track_artist, track_title)
 
             if not replacement_file:
                 print(f"No file selected for {track_title}. Skipping.")
