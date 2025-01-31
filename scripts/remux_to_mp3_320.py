@@ -6,7 +6,8 @@
 import os
 import subprocess
 import sys
-import re
+import time
+import shutil
 from mutagen import File
 from mutagen.mp3 import MP3
 from collections import defaultdict
@@ -106,7 +107,8 @@ def remux_to_320kbps_mp3(source_path, destination_path, directory):
         os.makedirs(os.path.dirname(destination_path), exist_ok=True)
         
         # Generate temporary file name for processing
-        temp_destination_path = tempfile.mkstemp(suffix=".mp3")[1]
+        temp_fd, temp_destination_path = tempfile.mkstemp(suffix=".mp3")
+        os.close(temp_fd)  # Close the file descriptor immediately
 
         # ffmpeg command to remux to 320kbps MP3
         command = [
@@ -119,36 +121,41 @@ def remux_to_320kbps_mp3(source_path, destination_path, directory):
         ]
         
         try:
-            subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
-        
-            print(f"Remuxed: {source_path} -> {temp_destination_path}")
-            
-            # Replace the original file with the remuxed temporary file
-            os.replace(temp_destination_path, destination_path)
-            print(f"Replaced original file with remuxed file: {destination_path}")
-            
-            # Update .m3u8 playlists and .sldl indexes with the new file extension
-            old_file = os.path.relpath(source_path, directory)
-            new_file = os.path.relpath(destination_path, directory)
-            update_m3u8_files(directory, old_file, new_file)
-            update_sldl_files(directory, old_file, new_file)
-            
-            # Remove the original file after remuxing
-            os.remove(source_path)
-            os.remove(temp_destination_path)
-            print(f"Removed original file: {source_path}")
-            
+            result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+            # print(f"Subprocess finished with return code {result.returncode}")
+            # print(f"Subprocess stdout: {result.stdout.decode()}")
+            # print(f"Subprocess stderr: {result.stderr.decode()}")
         except subprocess.CalledProcessError as e:
-            print(f"Subprocess error: {e}")
-            log_error_to_file(__file__, f"Subprocess error: {e}")
-        except UnicodeEncodeError as e:
-            print(f"Encoding error: {e}")
-            log_error_to_file(__file__, f"Encoding error: {e}")
+            print(f"Subprocess failed with return code {e.returncode}")
+            print(f"Subprocess stdout: {e.stdout.decode()}")
+            print(f"Subprocess stderr: {e.stderr.decode()}")
+            raise
+
+        # Ensure the file handle is released
+        time.sleep(1)
+
+        try:
+            shutil.move(temp_destination_path, destination_path)
+            print(f"File moved from {temp_destination_path} to {destination_path}")
+        except OSError as e:
+            print(f"Error moving file: {e}")
+            raise
         
+        # Update .m3u8 playlists and .sldl indexes with the new file extension
+        # old_file = os.path.relpath(source_path, directory)
+        # new_file = os.path.relpath(destination_path, directory)
+        old_file = os.path.relpath(source_path, directory)
+        destination_path = os.path.relpath(destination_path, directory)
+        print("old file: ", source_path)
+        print("new file: ", destination_path)
+        update_m3u8_files(directory, old_file, destination_path)
+        update_sldl_files(directory, old_file, destination_path)
+        
+        # Remove the original file after remuxing
+        os.remove(source_path)
     except Exception as e:
-        error_message = f"Error remuxing {source_path}: {e}"
-        print(error_message)
-        log_error_to_file(__file__, error_message)
+        print(f"Error remuxing {source_path}: {e}")
+        raise
 
 def walk_directory(directory):
     for subdir, _, files in os.walk(directory):
