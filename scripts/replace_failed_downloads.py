@@ -8,9 +8,14 @@ import csv
 import shutil
 from tkinter import Tk, filedialog
 import pyperclip
+import random
 
 # Constants
 destination_dir = "../tracks_and_playlists"
+replaced_files_dir = os.path.join(destination_dir, "_replaced_files")
+
+# Ensure the replaced_files directory exists
+os.makedirs(replaced_files_dir, exist_ok=True)
 
 # Suppress root Tk window
 Tk().withdraw()
@@ -76,6 +81,15 @@ def process_sldl_files(track_title, new_file_path):
                     with open(file_path, 'w', encoding='utf-8') as f:
                         f.write(';'.join(updated_entries))
 
+def get_processing_order():
+    """Prompt the user to select the processing order."""
+    print("Select processing order for the CSV file:")
+    print("1. Top-down")
+    print("2. Bottom-up")
+    print("3. Random")
+    choice = input("Enter 1, 2, or 3: ")
+    return choice
+
 def main():
     print("Starting script...")
     input_file = "../failed_downloads.csv"
@@ -89,8 +103,19 @@ def main():
         reader = csv.reader(f)
         rows = list(reader)
 
+    order_choice = get_processing_order()
+    if order_choice == '1':
+        rows_to_process = rows
+    elif order_choice == '2':
+        rows_to_process = reversed(rows)
+    elif order_choice == '3':
+        rows_to_process = random.sample(rows, len(rows))
+    else:
+        print("Invalid choice. Exiting.")
+        return
+
     try:
-        for row in reversed(rows):  # Iterate over the list in reverse order
+        for row in rows_to_process:
             track_title = row[1]
             track_artist = row[2]
             if not track_title:
@@ -105,8 +130,8 @@ def main():
                 continue
 
             print(f"Selected replacement file: {replacement_file}")
-            # Copy the replacement file to the destination directory
-            dest_path = os.path.abspath(shutil.copy(replacement_file, destination_dir))
+            # Copy the replacement file to the replaced_files directory
+            dest_path = os.path.abspath(shutil.copy(replacement_file, replaced_files_dir))
             print(f"Copied to {dest_path}")
 
             # Update .m3u8 files
