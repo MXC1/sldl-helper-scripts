@@ -24,8 +24,6 @@ def read_playlists_from_file(file_path):
     return playlists
 
 try:
-    soundcloud_csv_paths = []
-
     # Read playlists from file
     playlists = read_playlists_from_file('../playlists.csv')
     total_playlists = len(playlists)
@@ -40,25 +38,17 @@ try:
                 subprocess.run(["sldl", url], check=True)
         elif isinstance(item, str) and "soundcloud.com" in item:
             print(f"Processing SoundCloud playlist: {item}")
-            convert_soundcloud_to_csv(item)
+            
+            print("Parsing SoundCloud playlist and printing to CSV...")
+            csv_path = convert_soundcloud_to_csv(item)
+            
+            print(f"Passing SoundCloud CSV to sldl: {csv_path}")
+            subprocess.run(["sldl", "--desperate", "--strict-artist", csv_path], check=True)
+            
+            print(f"Removing CSV")
+            os.remove(csv_path)
 
-    # Find CSV files in the soundcloud_playlists directory
-    soundcloud_csv_dir = "./soundcloud_playlists"
-    if os.path.exists(soundcloud_csv_dir):
-        for file_name in os.listdir(soundcloud_csv_dir):
-            if file_name.endswith(".csv"):
-                soundcloud_csv_paths.append(os.path.join(soundcloud_csv_dir, file_name))
-
-    # Pass all CSV files from SoundCloud playlists to sldl
-    for csv_path in soundcloud_csv_paths:
-        print(f"Passing SoundCloud CSV to sldl: {csv_path}")
-        subprocess.run(["sldl", "--desperate", "--strict-artist", csv_path], check=True)
-        
-    # Remove SoundCloud CSV files once finished with them
-    for csv_path in soundcloud_csv_paths:
-        os.remove(csv_path)
-
-    # Rename Spotify playlists
+    # Rename m3u8 playlists
     print("Renaming playlists...")
     rename_playlists("../tracks_and_playlists/")
 

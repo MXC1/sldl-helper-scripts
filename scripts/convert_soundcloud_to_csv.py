@@ -121,6 +121,7 @@ def convert_soundcloud_to_csv(url):
 
         # Call the scraping function
         scrape_soundcloud_playlist(url, output_csv)
+        return output_csv  # Return the CSV path
     except Exception as e:
         logging.error("Unhandled exception occurred. Exiting.")
         log_error_to_file(__file__, f"Unhandled exception: {str(e)}")
