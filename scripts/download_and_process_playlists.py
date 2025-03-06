@@ -48,15 +48,8 @@ try:
             print(f"\nRemoving CSV")
             os.remove(csv_path)
 
-    # Rename m3u8 playlists
-    print("\nRenaming playlists...")
-    rename_playlists("../tracks_and_playlists/")
-
-    # Remux all files to mp3 320kbps
-    print("\nRemuxing files to mp3 320kbps...")
-    remux_to_mp3_320("../tracks_and_playlists/")
-
-    print("All tasks completed!")
+except KeyboardInterrupt:
+    print("\nProcess interrupted by user. Proceeding to rename and remux tasks...")
 
 except subprocess.CalledProcessError as e:
     error_message = f"Command '{e.cmd}' returned non-zero exit status {e.returncode}.\n{e.stderr}"
@@ -67,3 +60,14 @@ except Exception as e:
     error_message = str(e)
     log_error_to_file("download_and_process_playlists.py", error_message)
     print(f"\nAn unexpected error occurred. Details written to the log file: {e}")
+
+finally:
+    # Rename m3u8 playlists
+    print("\nRenaming playlists...")
+    rename_playlists("../tracks_and_playlists/")
+
+    # Remux all files to mp3 320kbps
+    print("\nRemuxing files to mp3 320kbps...")
+    remux_to_mp3_320("../tracks_and_playlists/")
+
+    print("All tasks completed!")
