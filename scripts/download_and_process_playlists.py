@@ -65,7 +65,9 @@ try:
     soundcloud_csv_paths = []
 
     # Process all playlists
-    for item in playlists:
+    total_playlists = len(playlists)
+    for index, item in enumerate(playlists):
+        print(f"Processing playlist {index + 1}/{total_playlists}")
         if isinstance(item, tuple):
             url, comment = item
             if "spotify.com" in url:
