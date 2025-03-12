@@ -1,17 +1,34 @@
-You will need:
+# You will need:
 * [pip](https://pypi.org/project/pip/)
 * [python](https://www.python.org/downloads/)
 * Some technical knowledge
 
-Very brief steps to use:
+# Very brief steps to use:
 1. Clone repository
 2. Install dependencies with `pip install -r requirements.txt`
-3. Replace my list with your Spotify and SoundCloud playlist URLs in `/scripts/download_and_process_playlists.py`
-4. Run `/scripts/download_and_process_playlists.py`
-5. ???
-6. Profit
+3. Download the ChromeDriver that matches your Chrome installation from https://developer.chrome.com/docs/chromedriver/downloads
+4. Replace my list with your Spotify and SoundCloud playlist URLs in `/playlists.csv` (format below)
+5. Run `/scripts/download_and_process_playlists.py`
+6. ???
+7. Profit
 
-The scripts do the following things:
+# Format of `/playlists.csv`:
+* Spotify playlists require a URL and a name
+* SoundCloud playlists just require a URL
+* Both must be wrapped in "quotes"
+```
+"<spotify-playlist-url>", "<name-of-spotify-playlist>"
+"<soundcloud-playlist-url"
+...
+```
+e.g.
+```
+"https://open.spotify.com/playlist/0VBxbOqjsoNytf232VaQEp?si=ca0e2673bbc84231", "fun silly donk and hard dance"
+"https://soundcloud.com/courtjester-uk/sets/donk-and-bits"
+...
+```
+
+# The scripts do the following things:
 * attempt to download the tracks from your list of playlists
 * all files are only downloaded in 320kbps mp3 or better
 * all files are remuxed to 320kbps mp3 for consistency and compatibility
@@ -24,7 +41,7 @@ The scripts do the following things:
  
 * errors are written to `/scripts/error_logs/YYYY-MM-DD_error_logs.txt`
 
-* If you want to import your library directly into Rekordbox, then:
+# If you want to import your library directly into Rekordbox, then:
 1. Install [MusicBee](https://www.getmusicbee.com/)
 2. Point MusicBee to /tracks_and_playlists
 3. In the MusicBee config, enable "Export library as iTunes XML file" or something similar
@@ -32,7 +49,8 @@ The scripts do the following things:
 5. Ta-da! Now Rekordbox recognises all your playlists with no extra effort to import.
 6. Just make sure you open MusicBee after each run of `download_and_process_playlists.py` and press the Insert key so that it can refresh the library with any new tracks downloaded since the last run.
 
-Example structure of created files (assuming one playlist called `playlist1` and one track called `Artist2 - Track3`:
+# Example structure of created files
+(assuming one playlist called `playlist1` and one track called `Artist2 - Track3`:
 ```
 /scripts
   /error_logs
